@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# ============================================================
+# System Information & Health Check Script
+# Author      : Shiraz
+# Description : Collects basic system health information
+# ============================================================
+
+set -euo pipefail
+
+# ---------- Colors ----------
+GREEN="\033[0;32m"
+CYAN="\033[0;36m"
+YELLOW="\033[1;33m"
+RESET="\033[0m"
+
+# ---------- Functions ----------
+print_header() {
+    echo -e "\n${CYAN}==================================================${RESET}"
+    echo -e "${CYAN}        SYSTEM INFORMATION & HEALTH CHECK        ${RESET}"
+    echo -e "${CYAN}==================================================${RESET}"
+}
+
+print_section() {
+    echo -e "\n${YELLOW}--- $1 ---${RESET}"
+}
+
+# ---------- Variables ----------
+SCRIPT_NAME="$(basename "$0")"
+HOSTNAME="$(hostname)"
+IP_ADDRESS="$(hostname -I | awk '{print $1}')"
+SOMEVAR="text stuff"
+
+# ---------- Execution ----------
+print_header
+
+echo "Script        : $SCRIPT_NAME"
+echo "Hostname      : $HOSTNAME"
+echo "IP Address    : $IP_ADDRESS"
+echo "Date & Time   : $(date '+%Y-%m-%d %H:%M:%S')"
+echo "Current User  : $(whoami)"
+
+print_section "Running Processes"
+ps -ef | head -10
+
+print_section "Memory Usage"
+free -h
+
+print_section "Disk Usage"
+df -h
+
+print_section "System Uptime"
+uptime
+
+print_section "Environment Variable"
+echo "SOMEVAR       : $SOMEVAR"
+
+print_section "System Information"
+uname -a
+
+echo -e "\n${GREEN}System health check completed successfully.${RESET}"
