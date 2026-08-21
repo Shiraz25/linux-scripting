@@ -1,0 +1,27 @@
+----------Simple-----
+#!/bin/bash
+
+echo "================================"
+echo "      User Input Example"
+echo "================================"
+
+read -rp "Enter your name: " name
+read -rp "Enter your age: " age
+
+echo
+echo "Hello, $name!"
+echo "You are $age years old."
+
+---------With If condition-------
+#!/bin/bash
+
+read -rp "Enter your name: " name
+read -rp "Enter your age: " age
+
+if [[ -z "$name" || -z "$age" ]]; then
+    echo "Error: Name and age are required."
+    exit 1
+fi
+
+echo "Name: $name"
+echo "Age : $age"
